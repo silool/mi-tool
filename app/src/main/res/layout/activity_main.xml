@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1a1a2e">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="28dp">
+
+        <!-- 标题 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小米快捷"
+            android:textColor="#ffffff"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <!-- 激活方案状态 -->
+        <TextView
+            android:id="@+id/tv_root_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_access_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tv_tile_hint"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#888888"
+            android:gravity="center"
+            android:layout_marginBottom="20dp" />
+
+        <!-- 分隔 -->
+        <View
+            android:layout_width="280dp"
+            android:layout_height="1dp"
+            android:background="#333355"
+            android:layout_marginBottom="20dp" />
+
+        <!-- 日常按钮 -->
+        <Button
+            android:id="@+id/btn_daily"
+            android:layout_width="280dp"
+            android:layout_height="90dp"
+            android:text="☀️  日 常 模 式"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:backgroundTint="#4CAF50"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="省电 ✅  ·  120Hz  ·  护眼 ✅"
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- 游戏按钮 -->
+        <Button
+            android:id="@+id/btn_game"
+            android:layout_width="280dp"
+            android:layout_height="90dp"
+            android:text="🎮  游 戏 模 式"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:backgroundTint="#FF5722"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="省电 ❌  ·  120Hz  ·  护眼 ❌"
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- 分隔 -->
+        <View
+            android:layout_width="280dp"
+            android:layout_height="1dp"
+            android:background="#333355"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚙️ 激活方案设置"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 无障碍 -->
+        <Button
+            android:id="@+id/btn_open_access"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:text="🔧  打开无障碍设置"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:backgroundTint="#3F51B5"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:text="设置 → 无障碍 → 已安装的应用 → 小米快捷 → 开启"
+            android:textColor="#666666"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 快捷开关 -->
+        <Button
+            android:id="@+id/btn_edit_tiles"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:text="🔲  添加快捷开关磁贴"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:backgroundTint="#9C27B0"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:text="下拉通知栏 → 编辑 → 找到「小米快捷」→ 拖入面板"
+            android:textColor="#666666"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Root 说明 -->
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:text="📌 Root 方案：自动检测，无需额外设置\n📌 无障碍方案：需手动开启一次\n📌 快捷开关：下拉通知栏一键切换"
+            android:textColor="#555555"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+</ScrollView>

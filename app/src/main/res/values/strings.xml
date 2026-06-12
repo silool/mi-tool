@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">小米快捷</string>
+    <string name="accessibility_desc">用于切换小米手机日常/游戏模式，修改省电、刷新率和护眼设置</string>
+</resources>
