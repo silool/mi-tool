@@ -6,6 +6,8 @@ import android.content.Intent
 import android.graphics.Path
 import android.graphics.Rect
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
@@ -100,7 +102,7 @@ class MiAccessibilityService : AccessibilityService() {
                     tryClickSwitch(sw, target)
                     pendingBatteryAction = null
                     // 点完 0.5 秒后返回
-                    handler.postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
                         performGlobalAction(GLOBAL_ACTION_BACK)
                     }, 500)
                     return
@@ -113,7 +115,7 @@ class MiAccessibilityService : AccessibilityService() {
         if (switches.isNotEmpty()) {
             tryClickSwitch(switches[0], target)
             pendingBatteryAction = null
-            handler.postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 performGlobalAction(GLOBAL_ACTION_BACK)
             }, 500)
         }
