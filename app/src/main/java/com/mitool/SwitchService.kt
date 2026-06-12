@@ -37,7 +37,7 @@ class SwitchService : Service() {
             }
         }
 
-        startForeground(NOTIFY_ID, buildNotification("小米快捷"))
+        try { startForeground(NOTIFY_ID, buildNotification("小米快捷")) } catch (e: Exception) { android.util.Log.e("MITool", "startForeground failed", e) }
         return START_STICKY
     }
 

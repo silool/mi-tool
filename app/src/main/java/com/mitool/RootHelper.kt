@@ -11,7 +11,7 @@ object RootHelper {
         if (available == null) {
             available = try {
                 val p = Runtime.getRuntime().exec(arrayOf("su", "-c", "id"))
-                p.waitFor()
+                p.waitFor(3, java.util.concurrent.TimeUnit.SECONDS)
                 p.exitValue() == 0
             } catch (e: Exception) { false }
         }
@@ -27,7 +27,7 @@ object RootHelper {
             val errReader = BufferedReader(InputStreamReader(p.errorStream))
             reader.forEachLine { sb.appendLine(it) }
             errReader.forEachLine { sb.appendLine("[E] $it") }
-            p.waitFor()
+            p.waitFor(3, java.util.concurrent.TimeUnit.SECONDS)
             reader.close(); errReader.close()
         } catch (e: Exception) { sb.appendLine("Error: ${e.message}") }
         return sb.toString()

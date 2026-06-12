@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         refreshStatus()
 
         // 启动通知栏后台服务
-        startService(Intent(this, SwitchService::class.java))
+        try { startService(Intent(this, SwitchService::class.java)) } catch (e: Exception) { android.util.Log.e("MITool", "startService failed", e) }
 
         // ===== 按钮 =====
         findViewById<Button>(R.id.btn_daily).setOnClickListener {
