@@ -46,12 +46,39 @@ class SettingsHelper(private val ctx: Context) {
     // ===== Settings API 方案 =====
 
     private fun setBatterySaverAPI(enable: Boolean) {
-        try {
-            Settings.Global.putInt(ctx.contentResolver, KEY_LOW_POWER, if (enable) 1 else 0)
-        } catch (e: SecurityException) {
-            Log.w(TAG, "无 WRITE_SECURE_SETTINGS 权限")
-            Toast.makeText(ctx, "省电模式需 ADB 授权或 Root", Toast.LENGTH_SHORT).show()
-            openBatterySettings()
+        val v = if (enable) 1 else 0
+        var success = false
+
+        // 尝试多种小米/Android 省电键
+        val keys = listOf(
+            "power_save_mode_open" to Settings.System::class.java,   // 小米 MIUI
+            "power_saver_mode"      to Settings.System::class.java,   // 部分机型
+            "battery_saver_mode"    to Settings.System::class.java,   // 备选
+            KEY_LOW_POWER           to Settings.Global::class.java    // 原生 Android（需 WRITE_SECURE_SETTINGS）
+        )
+
+        for ((key, type) in keys) {
+            try {
+                if (type == Settings.Global::class.java) {
+                    Settings.Global.putInt(ctx.contentResolver, key, v)
+                } else {
+                    Settings.System.putInt(ctx.contentResolver, key, v)
+                }
+                success = true
+                break
+            } catch (_: Exception) {}
+        }
+
+        if (!success) {
+            // 最后兜底：尝试用无障碍服务自动点击
+            val access = MiAccessibilityService.instance
+            if (access != null) {
+                Toast.makeText(ctx, "正在通过无障碍服务自动切换省电…", Toast.LENGTH_SHORT).show()
+                access.requestBatterySaver(enable)
+            } else {
+                Toast.makeText(ctx, "省电失败：请开启无障碍服务或 Root", Toast.LENGTH_LONG).show()
+                openBatterySettings()
+            }
         }
     }
 

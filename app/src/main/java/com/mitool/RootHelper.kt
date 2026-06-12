@@ -43,10 +43,15 @@ object RootHelper {
 
     // ===== 系统设置命令 =====
 
-    /** 省电模式 */
+    /** 省电模式 — 尝试多个小米/安卓键 */
     fun setBatterySaver(enable: Boolean) {
         val v = if (enable) 1 else 0
-        exec("settings put global low_power $v")
+        exec(
+            "settings put system power_save_mode_open $v",
+            "settings put system power_saver_mode $v",
+            "settings put system battery_saver_mode $v",
+            "settings put global low_power $v"
+        )
     }
 
     /** 刷新率 */
