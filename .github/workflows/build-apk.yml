@@ -18,11 +18,12 @@ jobs:
         with:
           packages: 'platforms;android-34 build-tools;34.0.0'
 
-      - name: Build APK
-        run: ./gradlew assembleDebug
+      - uses: gradle/gradle-build-action@v3
+        with:
+          arguments: assembleDebug
+          build-root-directory: .
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: 小米快捷-APK
           path: app/build/outputs/apk/debug/app-debug.apk
