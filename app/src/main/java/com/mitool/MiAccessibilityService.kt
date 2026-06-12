@@ -100,7 +100,7 @@ class MiAccessibilityService : AccessibilityService() {
                     tryClickSwitch(sw, target)
                     pendingBatteryAction = null
                     // 点完 0.5 秒后返回
-                    root.handler?.postDelayed({
+                    handler.postDelayed({
                         performGlobalAction(GLOBAL_ACTION_BACK)
                     }, 500)
                     return
@@ -113,7 +113,7 @@ class MiAccessibilityService : AccessibilityService() {
         if (switches.isNotEmpty()) {
             tryClickSwitch(switches[0], target)
             pendingBatteryAction = null
-            root.handler?.postDelayed({
+            handler.postDelayed({
                 performGlobalAction(GLOBAL_ACTION_BACK)
             }, 500)
         }

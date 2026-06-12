@@ -13,16 +13,11 @@ object RootHelper {
                 val p = Runtime.getRuntime().exec(arrayOf("su", "-c", "id"))
                 p.waitFor()
                 p.exitValue() == 0
-            } catch (e: Exception) {
-                false
-            }
+            } catch (e: Exception) { false }
         }
         return available!!
     }
 
-    /**
-     * 以 root 权限执行一条命令，返回 stdout
-     */
     fun exec(vararg commands: String): String {
         val sb = StringBuilder()
         try {
@@ -33,41 +28,47 @@ object RootHelper {
             reader.forEachLine { sb.appendLine(it) }
             errReader.forEachLine { sb.appendLine("[E] $it") }
             p.waitFor()
-            reader.close()
-            errReader.close()
-        } catch (e: Exception) {
-            sb.appendLine("Error: ${e.message}")
-        }
+            reader.close(); errReader.close()
+        } catch (e: Exception) { sb.appendLine("Error: ${e.message}") }
         return sb.toString()
     }
 
-    // ===== 系统设置命令 =====
-
-    /** 省电模式 — 尝试多个小米/安卓键 */
+    // ===== 省电模式 — 多路径尝试 =====
     fun setBatterySaver(enable: Boolean) {
         val v = if (enable) 1 else 0
         exec(
+            // 原生 Android 键
+            "settings put global low_power $v",
+            // 小米 System 键
             "settings put system power_save_mode_open $v",
             "settings put system power_saver_mode $v",
             "settings put system battery_saver_mode $v",
-            "settings put global low_power $v"
+            "settings put system smart_power_save $v",
+            // 小米 Secure 键
+            "settings put secure low_power_activation $v",
+            // cmd power（Android 9+）
+            "cmd power set-mode ${if (enable) 1 else 0}",
+            // 触发省电广播
+            "am broadcast -a android.os.action.POWER_SAVE_MODE_CHANGED --ez mode $enable"
         )
     }
 
-    /** 刷新率 */
+    // ===== 刷新率 =====
     fun setRefreshRate(hz: Int) {
         exec(
             "settings put system peak_refresh_rate ${hz}.0",
-            "settings put system user_refresh_rate $hz"
+            "settings put system user_refresh_rate $hz",
+            "settings put system min_refresh_rate $hz"
         )
     }
 
-    /** 护眼/阅读模式 */
+    // ===== 护眼 =====
     fun setReadingMode(enable: Boolean) {
         val v = if (enable) 1 else 0
         exec(
             "settings put system screen_paper_mode_enabled $v",
-            "settings put system reading_mode_status $v"
+            "settings put system reading_mode_status $v",
+            "settings put system display_paper_mode $v"
         )
     }
 }
