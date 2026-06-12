@@ -18,10 +18,16 @@ jobs:
         with:
           packages: 'platforms;android-34 build-tools;34.0.0'
 
-      - uses: gradle/gradle-build-action@v3
-        with:
-          arguments: assembleDebug
-          build-root-directory: .
+      - name: Download Gradle
+        run: |
+          wget -q https://services.gradle.org/distributions/gradle-8.4-bin.zip
+          unzip -q gradle-8.4-bin.zip
+          echo "$PWD/gradle-8.4/bin" >> $GITHUB_PATH
+
+      - name: Generate wrapper & build
+        run: |
+          gradle wrapper
+          ./gradlew assembleDebug
 
       - uses: actions/upload-artifact@v4
         with:
